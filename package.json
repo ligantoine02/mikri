@@ -1,0 +1,5 @@
+{
+  "name": "@mikri",
+  "private": true,
+  "workspaces": ["backend/*", "apps/*"] 
+}
