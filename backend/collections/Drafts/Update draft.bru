@@ -1,0 +1,17 @@
+meta {
+  name: Update draft
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{baseUrl}}/drafts/a-little-simple-draft
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "description": "Just found something awesome"
+  }
+}

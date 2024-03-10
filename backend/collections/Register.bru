@@ -1,0 +1,19 @@
+meta {
+  name: Register
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "ligantoine02@gmail.com",
+    "username": "ligantoine02",
+    "password": "Allmywebsites1"
+  }
+}

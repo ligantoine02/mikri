@@ -1,0 +1,18 @@
+meta {
+  name: Create a task
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/tasks
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "Build a dashboard",
+    "description": "Create a beautiful dashboard"
+  }
+}
