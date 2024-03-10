@@ -2,6 +2,8 @@ import { createId } from "@paralleldrive/cuid2";
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 import { timestamps } from "./utils";
+import { relations } from "drizzle-orm";
+import { tasks } from "./tasks";
 
 export const users = sqliteTable(
 	"users",
@@ -27,6 +29,11 @@ export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferSelect;
 
 // TODO Valibot schemas
+
+// Relations
+export const usersRelations = relations(users, ({ many }) => ({
+	tasks: many(tasks),
+}));
 
 export const sessions = sqliteTable("sessions", {
 	id: text("id").notNull().unique().primaryKey(),
