@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { AuthInput, lucia } from "./lib/lucia";
 
 const meRoutes = new Hono();
 
@@ -25,7 +26,17 @@ meRoutes.put("/", async (ctx) => {
  */
 
 /**
- * @todo
+ * @todo logout user
+ * @method POST
  */
+meRoutes.post("/logout", async (ctx) => {
+	/**
+	 * @todo validate global context input types
+	 */
+	const user = ctx.get("user") as AuthInput;
+	await lucia.invalidateUserSessions(user.id);
+
+	return ctx.json({ logout: true }, 200);
+});
 
 export default meRoutes;

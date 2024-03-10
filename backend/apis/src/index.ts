@@ -38,6 +38,9 @@ app.use(async (ctx, next) => {
 		return ctx.json({ message: "Unauthorized" }, 401);
 	}
 
+	ctx.set("session", session);
+	ctx.set("user", user);
+
 	return next();
 });
 
