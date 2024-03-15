@@ -1,59 +1,48 @@
-import React from 'react';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { Link, Tabs } from 'expo-router';
-import { Pressable } from 'react-native';
+import { Tabs } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import Colors from '@/constants/Colors';
-import { useColorScheme } from '@/components/useColorScheme';
-import { useClientOnlyValue } from '@/components/useClientOnlyValue';
-
-// You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
-function TabBarIcon(props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+import { Brain, Home, ListTodo, User2 } from "@tamagui/lucide-icons";
+import { View } from "tamagui";
+import Header from "@/components/Header";
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+	const { top } = useSafeAreaInsets();
 
-  return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? 'light'].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="two"
-        options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-        }}
-      />
-    </Tabs>
-  );
+	return (
+		<View flex={1} w="100%" pt={top}>
+			<Header />
+			<Tabs
+				screenOptions={{
+					headerShown: false,
+					tabBarShowLabel: false,
+				}}
+				initialRouteName="tasks"
+			>
+				<Tabs.Screen
+					name="ideas"
+					options={{
+						tabBarIcon: ({ color, size }) => (
+							<Brain size={size} color={color} />
+						),
+					}}
+				/>
+				<Tabs.Screen
+					name="tasks"
+					options={{
+						tabBarIcon: ({ color, size }) => (
+							<ListTodo size={size} color={color} />
+						),
+					}}
+				/>
+				<Tabs.Screen
+					name="me"
+					options={{
+						tabBarIcon: ({ color, size }) => (
+							<User2 size={size} color={color} />
+						),
+					}}
+				/>
+			</Tabs>
+		</View>
+	);
 }
